@@ -1,16 +1,214 @@
 ---
-title: "Demo Post 2"
-description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-pubDate: "Sep 11 2022"
-heroImage: "/post_img.webp"
+title: "Building Your First Web3 App with Next.js, ethers.js, WalletConnect, and Solidity"
+description: "Learn how to build a Web3 app using Next.js, ethers.js, WalletConnect, and Solidity. This guide covers creating a simple bank application with deposit, withdraw, and balance functionalities."
+pubDate: "May 23, 2024"
+heroImage: "/web3-app.png"
+tags: ["Web3", "Next.js", "ethers.js", "WalletConnect", "Solidity"]
 ---
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+# Building Your First Web3 App with Next.js, ethers.js, WalletConnect, and Solidity
 
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+In this tutorial, we will build a simple Web3 bank application where users can deposit, withdraw, and check their balance. We will use Next.js for the frontend, ethers.js for interacting with Ethereum, WalletConnect for wallet integration, and Solidity for the smart contract.
 
-Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
+## Prerequisites
 
-Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
+- Node.js and npm installed
+- Basic knowledge of JavaScript and React
+- Metamask or any WalletConnect compatible wallet
 
-Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
+## Setting Up the Project
+
+First, create a new Next.js project:
+
+```bash
+npx create-next-app my-web3-bank
+cd my-web3-bank
+```
+
+Install the necessary dependencies:
+
+```bash
+npm install ethers walletconnect-client react-walletconnect-modal
+```
+
+## Writing the Smart Contract
+
+Create a new file called `Bank.sol` in a `contracts` directory:
+
+```solidity
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Bank {
+    mapping(address => uint256) private balances;
+
+    function deposit() public payable {
+        balances[msg.sender] += msg.value;
+    }
+
+    function withdraw(uint256 amount) public {
+        require(balances[msg.sender] >= amount, "Insufficient balance");
+        balances[msg.sender] -= amount;
+        payable(msg.sender).transfer(amount);
+    }
+
+    function getBalance() public view returns (uint256) {
+        return balances[msg.sender];
+    }
+}
+```
+
+Compile and deploy the contract using Hardhat:
+
+1. Initialize Hardhat:
+
+```bash
+npx hardhat
+```
+
+2. Create a deployment script in `scripts/deploy.js`:
+
+```javascript
+async function main() {
+    const Bank = await ethers.getContractFactory("Bank");
+    const bank = await Bank.deploy();
+    await bank.deployed();
+    console.log("Bank deployed to:", bank.address);
+}
+
+main()
+    .then(() => process.exit(0))
+    .catch((error) => {
+        console.error(error);
+        process.exit(1);
+    });
+```
+
+3. Deploy the contract:
+
+```bash
+npx hardhat run scripts/deploy.js --network <your_network>
+```
+
+## Integrating the Smart Contract with Next.js
+
+Create a new file called `web3.js` in the `lib` directory to handle the Web3 setup:
+
+```javascript
+import { ethers } from "ethers";
+import WalletConnectProvider from "@walletconnect/web3-provider";
+
+const provider = new WalletConnectProvider({
+    infuraId: "<YOUR_INFURA_PROJECT_ID>",
+});
+
+const getWeb3 = async () => {
+    await provider.enable();
+    const web3Provider = new ethers.providers.Web3Provider(provider);
+    return web3Provider;
+};
+
+const getContract = async (address, abi) => {
+    const web3 = await getWeb3();
+    const signer = web3.getSigner();
+    return new ethers.Contract(address, abi, signer);
+};
+
+export { getWeb3, getContract };
+```
+
+## Building the Frontend
+
+Create a new component `BankApp.js` in the `components` directory:
+
+```javascript
+import { useState } from "react";
+import { getContract } from "../lib/web3";
+import BankAbi from "../contracts/Bank.json"; // ABI from the compiled contract
+
+const BankApp = () => {
+    const [balance, setBalance] = useState(0);
+    const [amount, setAmount] = useState("");
+
+    const contractAddress = "<YOUR_DEPLOYED_CONTRACT_ADDRESS>";
+
+    const getBalance = async () => {
+        const contract = await getContract(contractAddress, BankAbi.abi);
+        const balance = await contract.getBalance();
+        setBalance(ethers.utils.formatEther(balance));
+    };
+
+    const deposit = async () => {
+        const contract = await getContract(contractAddress, BankAbi.abi);
+        await contract.deposit({ value: ethers.utils.parseEther(amount) });
+        getBalance();
+    };
+
+    const withdraw = async () => {
+        const contract = await getContract(contractAddress, BankAbi.abi);
+        await contract.withdraw(ethers.utils.parseEther(amount));
+        getBalance();
+    };
+
+    return (
+        <div className="container">
+            <h1>Web3 Bank</h1>
+            <div>
+                <p>Balance: {balance} ETH</p>
+                <button onClick={getBalance}>Get Balance</button>
+            </div>
+            <div>
+                <input
+                    type="text"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    placeholder="Amount in ETH"
+                />
+                <button onClick={deposit}>Deposit</button>
+                <button onClick={withdraw}>Withdraw</button>
+            </div>
+        </div>
+    );
+};
+
+export default BankApp;
+```
+
+## Adding Styles
+
+Add some basic styles in `styles/globals.css`:
+
+```css
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+input {
+    margin-right: 1rem;
+    padding: 0.5rem;
+}
+
+button {
+    padding: 0.5rem 1rem;
+    margin: 0.5rem;
+    cursor: pointer;
+}
+```
+
+## Running the Application
+
+Finally, run your Next.js application:
+
+```bash
+npm run dev
+```
+
+Open your browser and navigate to `http://localhost:3000` to see your Web3 bank application in action. You can now deposit, withdraw, and check your balance using your Ethereum wallet.
+
+## Conclusion
+
+In this tutorial, we built a simple Web3 application using Next.js, ethers.js, WalletConnect, and Solidity. This project is a great starting point for understanding how to interact with the Ethereum blockchain from a web application. Keep exploring and expanding your Web3 skills!
+

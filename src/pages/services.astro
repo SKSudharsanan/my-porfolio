@@ -1,40 +1,62 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import HorizontalCard from "../components/HorizontalCard.astro";
+import ServiceCard from "../components/ServiceCard.astro";
 ---
 
 <BaseLayout title="Projects" sideBarActiveItemID="services">
   <div>
-    <div class="text-3xl w-full font-bold mb-5">Services Header</div>
+    <div class="text-3xl w-full font-bold mb-5">Our Services</div>
   </div>
 
-  <HorizontalCard
-    title="Service 1"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    badge="NEW"
-    url="#"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Service 2"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
-  />
-  <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Service 3"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
+  <ServiceCard
+    title="Product Development"
+    img="/pd.webp"
+    desc={[
+      "Web development",
+      "Blockchain",
+      "Dapps",
+      "AI chatbots",
+      "Backend services (Rust, Go, Node.js, Python)"
+    ]}
+    emailSubject="Interest in Product Development Service"
     badge="NEW"
   />
   <div class="divider my-0"></div>
-  <HorizontalCard
-    title="Service 4"
-    img="/post_img.webp"
-    desc="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-    url="#"
+  <ServiceCard
+    title="Developer Relations"
+    img="/dr.webp"
+    desc={[
+      "Whitepaper creation",
+      "Idea forming",
+      "Community building",
+      "Organizing hackathons and meetups",
+      "Sample projects/PoC developments",
+      "Public representation of products",
+      "Hiring and training"
+    ]}
+    emailSubject="Interest in Developer Relations Service"
+  />
+  <div class="divider my-0"></div>
+  <ServiceCard
+    title="Content Strategy"
+    img="/content.webp"
+    desc={[
+      "Content strategy for businesses",
+      "Handling social media accounts of businesses",
+      "Marketing strategy",
+      "Tech tutorials for products"
+    ]}
+    emailSubject="Interest in Content Strategy Service"
+    badge="NEW"
+  />
+  <div class="divider my-0"></div>
+  <ServiceCard
+    title="Training and Bootcamps"
+    img="/training.webp"
+    desc={[
+      "Organizing training sessions and bootcamps on Rust, Go, Solidity, Node.js, and AI",
+      "Exclusive workshops for Web3 chains (on demand)"
+    ]}
+    emailSubject="Interest in Training and Bootcamp Services"
   />
 </BaseLayout>
