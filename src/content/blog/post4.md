@@ -2,7 +2,7 @@
 title: "Write your first circom circuit and use groth16 to create zkproofs and verify it"
 description: "This Blog serves as a entry point to circom and snarkjs and how it can be utilized in order to create zk circuits and create proofs and verify them"
 pubDate: "May 25, 2024"
-heroImage: "/2.png"
+heroImage: "/2.webp"
 tags: ["Web3", "Zksnark", "Circom", "Snarkjs", "Groth16"]
 ---
 ## Hackathon
