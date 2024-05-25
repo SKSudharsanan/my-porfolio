@@ -20,15 +20,7 @@ const { entry } = Astro.props;
 const post: BlogSchema = entry.data;
 const { Content } = await entry.render();
 ---
-<html lang="en">
-<head>
-  <title>{post.title}</title>
-  <meta name="description" content={post.description} />
-  <meta property="og:title" content={post.title} />
-  <meta property="og:description" content={post.description} />
-  <meta property="og:image" content={post.heroImage} />
-</head>
-<body>
+
 <PostLayout
   title={post.title}
   description={post.description}
@@ -40,4 +32,3 @@ const { Content } = await entry.render();
 >
   <Content />
 </PostLayout>
-</body>
