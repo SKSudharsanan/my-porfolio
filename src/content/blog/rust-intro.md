@@ -13,7 +13,6 @@ According to Rust By Example, [Rust](https://www.rust-lang.org/) is a modern sys
 
 Rust has been ranked as the most loved programming language for over 7 years by the survey done at Stack Overflow, and has been steadily in rise of number of developers and projects. Rust has been used in big companies such as Microsoft, Mozila, Google, Meta and Apple. Rust has been the go-to-language in terms of building blockchain and modern smart contracts. Modern smart contract DSL such as move, cairo and ink are created as a superset of rust and follows rust heavily.
 
-
 Even though, Rust is being the most loved language among devs, one major problem with rust is the steep learning curve. Resources such as Rust Book, Rust by Example are very well documented but still very hard to understand for non-native english speakers. This whole series is a adaptation of how I learned Rust and introducing a developer prescriptive to rust.
 
 # Who I am and What I do?
@@ -42,7 +41,7 @@ once rust is installed, the next thing to check is cargo.
 
 # Cargo Package Manager
 
-For those who are familiar with NPM, you may easily understand what cargo is . Like NPM for Nodejs, cargo is the official package manager for rust. 
+For those who are familiar with NPM, you may easily understand what cargo is . Like NPM for Nodejs, cargo is the official package manager for rust.
 
 It has lots of really useful features to improve code quality and developer velocity! These include
 
@@ -88,5 +87,6 @@ cd helloworld
 cargo run
 ```
 
-In the next blog, we will be taking about the data types and write a program to understand the same. Watch out sksudharsanan.com for more blogs and all rust series blogs can be found at sksudharsanan.com/blog/tag/RustSeries/
-Thanks a lot for giving your time in reading this blog and hope this can be a great journey to start
+In the next blog, we will be taking about the data types and write a program to understand the same. Watch out [sksudharsanan.com](https://sksudharsanan.com) for more blogs and all rust series blogs can be found [here]([https://](https://sksudharsanan.com/blog/tag/RustSeries/)https://).
+
+Thanks a lot for giving your time in reading this blog and hope this series can help you get started with rust programming language
