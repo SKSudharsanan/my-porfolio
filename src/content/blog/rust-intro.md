@@ -87,6 +87,6 @@ cd helloworld
 cargo run
 ```
 
-In the next blog, we will be taking about the data types and write a program to understand the same. Watch out [sksudharsanan.com](https://sksudharsanan.com) for more blogs and all rust series blogs can be found [here]([https://](https://sksudharsanan.com/blog/tag/RustSeries/)https://).
+In the next blog, we will be taking about the data types and write a program to understand the same. Watch out [sksudharsanan.com](https://sksudharsanan.com) for more blogs and all rust series blogs can be found [here](https://sksudharsanan.com/blog/tag/RustSeries)
 
 Thanks a lot for giving your time in reading this blog and hope this series can help you get started with rust programming language

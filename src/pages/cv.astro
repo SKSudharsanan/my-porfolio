@@ -86,4 +86,25 @@ import TimeLineElement from "../components/cv/TimeLine.astro";
     <li>EVM Chains</li>
     <li>Polkadot</li>
   </ul>
+
+  <!-- Add the button -->
+  <div class="mb-10">
+    <button id="download" class="px-4 py-2 bg-blue-500 text-white rounded">Download as PDF</button>
+  </div>
 </BaseLayout>
+
+<!-- Add the script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const button = document.getElementById('download');
+    if (button) {
+      button.addEventListener('click', () => {
+        const element = document.querySelector('body');
+        html2pdf().from(element).save('sk-resume.pdf');
+      });
+    } else {
+      console.error("Button with id 'download' not found.");
+    }
+  });
+</script>
